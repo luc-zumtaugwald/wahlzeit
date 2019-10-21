@@ -25,4 +25,16 @@ public class Coordinate {
 		}
 		return coordinate.x==this.x && coordinate.y == this.y && coordinate.z == this.z;
 	}
+	
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public double getZ() {
+		return z;
+	}
 }

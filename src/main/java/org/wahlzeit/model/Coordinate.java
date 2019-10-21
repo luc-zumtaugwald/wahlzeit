@@ -20,6 +20,9 @@ public class Coordinate {
 	}
 	
 	public boolean isEqual(Coordinate coordinate) {
+		if(coordinate == null) {
+			return false;
+		}
 		return coordinate.x==this.x && coordinate.y == this.y && coordinate.z == this.z;
 	}
 }

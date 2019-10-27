@@ -1,5 +1,9 @@
 package org.wahlzeit.model;
-
+/**
+ * A Coordinate contains cartesian
+ * @author luc
+ *
+ */
 public class Coordinate {
 	
 	private double x;
@@ -25,7 +29,9 @@ public class Coordinate {
 		}
 		return coordinate.x==this.x && coordinate.y == this.y && coordinate.z == this.z;
 	}
-	
+	/**
+	 * @methodType get
+	 */
 	public double getX() {
 		return x;
 	}

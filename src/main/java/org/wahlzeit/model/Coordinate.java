@@ -1,8 +1,7 @@
 package org.wahlzeit.model;
 /**
- * A Coordinate contains cartesian
- * @author luc
- *
+ * This class represents a cartesian coordinate
+ * 
  */
 public class Coordinate {
 	
@@ -16,31 +15,75 @@ public class Coordinate {
 		this.z = z;
 	}
 	
-	public double getDistance(Coordinate coordinate) {
-		double tempX = coordinate.x - this.x;
-		double tempY = coordinate.y - this.y;
-		double tempZ = coordinate.z - this.z;
-		return Math.sqrt(tempX*tempX+tempY*tempY+tempZ*tempZ);
+	/**
+	 * calculates the euclidian distance to a specific coordinate
+	 */
+	protected double getDistance(Coordinate coordinate) {
+		if(coordinate == null) {
+			throw new IllegalArgumentException("coordinate must not be null");
+		}
+		double dX = coordinate.x - this.x;
+		double dY = coordinate.y - this.y;
+		double dZ = coordinate.z - this.z;
+		return Math.sqrt(dX*dX+dY*dY+dZ*dZ);
 	}
 	
-	public boolean isEqual(Coordinate coordinate) {
+	protected boolean isEqual(Coordinate coordinate) {
 		if(coordinate == null) {
 			return false;
 		}
 		return coordinate.x==this.x && coordinate.y == this.y && coordinate.z == this.z;
 	}
+	
 	/**
-	 * @methodType get
+	 * @methodtype get
 	 */
 	public double getX() {
 		return x;
 	}
-
+	
+	/**
+	 * @methodtype get
+	 */
 	public double getY() {
 		return y;
 	}
-
+	
+	/**
+	 * @methodtype get
+	 */
 	public double getZ() {
 		return z;
+	}
+	
+	/**
+	 * @methodtype set
+	 */
+	public void setX(double x) {
+		this.x = x;
+	}
+	
+	/**
+	 * @methodtype set
+	 */
+	public void setY(double y) {
+		this.y = y;
+	}
+	
+	/**
+	 * @methodtype set
+	 */
+	public void setZ(double z) {
+		this.z = z;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return (obj instanceof Coordinate) && this.isEqual((Coordinate)obj);
+	}
+	
+	@Override
+	public int hashCode() {
+		return (int)(this.x+this.y+this.z);
 	}
 }

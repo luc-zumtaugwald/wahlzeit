@@ -27,7 +27,6 @@ public class CoordinateTest {
 		Coordinate c1 = new Coordinate(34,25,12);
 		Coordinate c2 = new Coordinate(34,25,12);
 		assertTrue(c1.isEqual(c2));
-		
 		c2 = new Coordinate(35,26,12);
 		assertFalse(c1.isEqual(c2));
 		

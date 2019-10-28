@@ -33,4 +33,19 @@ public class CoordinateTest {
 		c2 = null;
 		assertFalse(c1.isEqual(c2));
 	}
+	
+	@Test
+	public void testEquals() {
+		Coordinate c1 = new Coordinate(34,25,12);
+		Coordinate c2 = new Coordinate(34,25,12);
+		assertTrue(c1.equals(c2));
+		c2 = new Coordinate(35,26,12);
+		assertFalse(c1.equals(c2));
+		
+		c2 = null;
+		assertFalse(c1.equals(c2));
+		
+		String notACoordinate = "Hi";
+		assertFalse(c1.equals(notACoordinate));
+	}
 }

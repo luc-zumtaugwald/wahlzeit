@@ -9,6 +9,12 @@ public class Coordinate {
 	private double y;
 	private double z;
 	
+	public Coordinate(){
+		this.x = 0;
+		this.y = 0;
+		this.z = 0;
+	}
+	
 	public Coordinate(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
@@ -32,7 +38,7 @@ public class Coordinate {
 		if(coordinate == null) {
 			return false;
 		}
-		return coordinate.x==this.x && coordinate.y == this.y && coordinate.z == this.z;
+		return compareDoubles(this.x, coordinate.x) && compareDoubles(this.y, coordinate.y) && compareDoubles(this.z, coordinate.z);
 	}
 	
 	/**
@@ -85,5 +91,10 @@ public class Coordinate {
 	@Override
 	public int hashCode() {
 		return (int)(this.x+this.y+this.z);
+	}
+
+	private static final double EPSILON = 1e-5;
+	private boolean compareDoubles(double a, double b){
+		return Math.abs(a-b) < EPSILON;
 	}
 }

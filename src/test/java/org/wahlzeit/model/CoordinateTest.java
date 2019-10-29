@@ -36,8 +36,8 @@ public class CoordinateTest {
 	
 	@Test
 	public void testEquals() {
-		Coordinate c1 = new Coordinate(34,25,12);
-		Coordinate c2 = new Coordinate(34,25,12);
+		Coordinate c1 = new Coordinate(34.12345678,25.999999999999999,12);
+		Coordinate c2 = new Coordinate(34.12345678,25.999999999999999,12);
 		assertTrue(c1.equals(c2));
 		c2 = new Coordinate(35,26,12);
 		assertFalse(c1.equals(c2));

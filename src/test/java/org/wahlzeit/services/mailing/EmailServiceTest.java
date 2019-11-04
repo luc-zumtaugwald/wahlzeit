@@ -26,6 +26,7 @@ import org.wahlzeit.services.EmailAddress;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class EmailServiceTest {
 
@@ -56,5 +57,36 @@ public class EmailServiceTest {
 		} catch (Exception ex) {
 			Assert.fail("Silent mode does not allow exceptions");
 		}
+	}
+	
+	@Test
+	public void testSendFromInvalidEmailException(){
+		try{
+			emailService.sendEmail(null, validAddress, "subject", " ");
+			fail("Expected MailingException to be thrown");
+		} catch(MailingException me){
+			assertTrue(me.getMessage().contains("from must be a valid email"));
+		}
+	}
+
+	@Test
+	public void testSendToInvalidEmailException(){
+		try{
+			emailService.sendEmail(validAddress, null, "subject", " ");
+			fail("Expected MailingException to be thrown");
+		} catch(MailingException me){
+			assertTrue(me.getMessage().contains("to must be a valid email"));
+		}
+		
+	}
+
+	@Test
+	public void testSendValidEmailException(){
+		try{
+			emailService.sendEmail(validAddress, validAddress, "subject", " ");
+		} catch(Exception ex){
+			fail("No Exception expected");
+		}
+		
 	}
 }

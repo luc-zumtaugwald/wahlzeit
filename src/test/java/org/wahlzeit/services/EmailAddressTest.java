@@ -79,5 +79,15 @@ public class EmailAddressTest extends TestCase {
 		String address = internetAddress.getAddress();
 		assertTrue(address.equals("test@gmail.com")); 
 	}
+	/**
+	 * 
+	 */
+	public void testEmailIsEqual(){
+		EmailAddress email = EmailAddress.getFromString("test@gmail.com");
+		EmailAddress email2 = EmailAddress.getFromString("test@gmail.com");
+		assertTrue(email.isEqual(email2));
+		email2 = EmailAddress.getFromString("other@gmail.com");
+		assertFalse(email.isEqual(email2));
+	}
 }
 

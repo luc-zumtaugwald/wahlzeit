@@ -74,8 +74,10 @@ public class EmailAddressTest extends TestCase {
 	 */
 	public void testEmailAsInternetAddress(){
 		EmailAddress email = EmailAddress.getFromString("test@gmail.com");
-		InternetAddress address = email.asInternetAddress();
-		assertTrue(address.getAddress().equals("test@gmail.com")); 
+		InternetAddress internetAddress = email.asInternetAddress();
+		assertNotNull("return value of asInternetAddress() must not be null", internetAddress);
+		String address = internetAddress.getAddress();
+		assertTrue(address.equals("test@gmail.com")); 
 	}
 }
 

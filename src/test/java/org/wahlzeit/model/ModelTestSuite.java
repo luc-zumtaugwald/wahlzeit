@@ -15,7 +15,8 @@ import org.wahlzeit.model.persistence.PersistenceTestSuite;
         PhotoFilterTest.class,
         TagsTest.class,
         UserStatusTest.class,
-        ValueTest.class
+        ValueTest.class,
+        CityPhotoFactoryTest.class
 })
 public class ModelTestSuite {
 }

@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 /**
  * An Abstract Factory for creating photos and related objects.
  */
-public class PhotoFactory {
+public abstract class PhotoFactory {
 
 	private static final Logger log = Logger.getLogger(PhotoFactory.class.getName());
 	/**
@@ -75,16 +75,12 @@ public class PhotoFactory {
 	/**
 	 * @methodtype factory
 	 */
-	public Photo createPhoto() {
-		return new Photo();
-	}
+	public abstract Photo createPhoto();
 
 	/**
 	 * Creates a new photo with the specified id
 	 */
-	public Photo createPhoto(PhotoId id) {
-		return new Photo(id);
-	}
+	public abstract Photo createPhoto(PhotoId id);
 
 	/**
 	 * Loads a photo. The Java object is loaded from the Google Datastore, the Images in all sizes are loaded from the

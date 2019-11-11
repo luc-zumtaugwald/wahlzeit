@@ -17,12 +17,18 @@ public class CityPhotoFactory extends PhotoFactory {
     @Override
     public CityPhoto createPhoto() {
         // TODO Auto-generated method stub
-        return new CityPhoto();
+        CityPhoto photo = new CityPhoto();
+        photo.setCityName("unknown");
+        photo.setInhabitantCount(0);
+        return photo;
     }
-
+    
     @Override
     public CityPhoto createPhoto(PhotoId id){
-        return new CityPhoto(id);
+        CityPhoto photo = new CityPhoto(id);
+        photo.setCityName("unknown");
+        photo.setInhabitantCount(0);
+        return photo;
     }
 
 }

@@ -48,7 +48,7 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 *
 	 */
-	protected static final PhotoManager instance = new CityPhotoManager();
+	protected static final PhotoManager instance = new PhotoManager();
 
 	private static final Logger log = Logger.getLogger(PhotoManager.class.getName());
 
@@ -105,7 +105,7 @@ public class PhotoManager extends ObjectManager {
 			return null;
 		}
 
-		Photo result = doGetPhotoFromId(id);
+  		Photo result = doGetPhotoFromId(id);
 
 		if (result == null) {
 			result = PhotoFactory.getInstance().loadPhoto(id);
@@ -353,7 +353,7 @@ public class PhotoManager extends ObjectManager {
 
 		GlobalsManager.getInstance().saveGlobals();
 	}
-
+ 
 	/**
 	 * @methodtype assertion
 	 */

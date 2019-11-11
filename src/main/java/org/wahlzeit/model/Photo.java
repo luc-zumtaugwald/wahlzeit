@@ -38,7 +38,7 @@ import java.util.Map;
  * A photo represents a user-provided (uploaded) photo.
  */
 @Entity
-public class Photo extends DataObject {
+public abstract class Photo extends DataObject {
 
 	/**
 	 *

@@ -66,20 +66,6 @@ public class CoordinateTest {
 	}
 
 	@Test
-	public void testEquals() {
-		Coordinate c1 = new SphericCoordinate(10,24,6);
-		Coordinate c2 = c1.asCartesianCoordinate().asSphericCoordinate();
-		assertTrue(c1.equals(c2));
-		c2 = new SphericCoordinate(10.5,24,6);
-		assertFalse(c1.equals(c2));
-		
-		c2 = null;
-		assertFalse(c1.equals(c2));
-		
-		String notACoordinate = "Hi";
-		assertFalse(c1.equals(notACoordinate));
-	}
-	@Test
 	public void testCartesianToSphericCoordinate() {
 		CartesianCoordinate c1 = new CartesianCoordinate(10,24,6);
 		SphericCoordinate c2 = c1.asSphericCoordinate();

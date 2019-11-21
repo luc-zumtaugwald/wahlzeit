@@ -1,4 +1,4 @@
-package org.wahlzeit.model;
+package org.wahlzeit.extension;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -8,6 +8,9 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
+import org.wahlzeit.extension.CityPhoto;
+import org.wahlzeit.model.Photo;
+import org.wahlzeit.model.PhotoFactory;
 import org.wahlzeit.services.OfyService;
 import org.wahlzeit.testEnvironmentProvider.LocalDatastoreServiceTestConfigProvider;
 import org.wahlzeit.testEnvironmentProvider.RegisteredOfyEnvironmentProvider;

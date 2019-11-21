@@ -1,9 +1,12 @@
-package org.wahlzeit.model;
+package org.wahlzeit.extension;
+
+import java.util.Objects;
+
 /**
  * This class represents a cartesian coordinate
  * 
  */
-public class CartesianCoordinate implements Coordinate{
+public class CartesianCoordinate extends AbstractCoordinate{
 	
 	private double x;
 	private double y;
@@ -77,33 +80,9 @@ public class CartesianCoordinate implements Coordinate{
 	}
 
 	@Override
-	public boolean isEqual(Coordinate coordinate) {
-		if(coordinate == null) {
-			return false;
-		}
-		SphericCoordinate spheric = this.asSphericCoordinate();
-		return spheric.isEqual(coordinate);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		return (obj instanceof Coordinate) && this.isEqual((Coordinate)obj);
-	}
-	
-	@Override
-	public int hashCode() {
-		return (int)(this.x+this.y+this.z);
-	}
-
-	@Override
 	public CartesianCoordinate asCartesianCoordinate() {
 		CartesianCoordinate coordinate = new CartesianCoordinate(getX(),getY(),getZ());
 		return coordinate;
-	}
-
-	@Override
-	public double getCartesianDistance(Coordinate coordinate) {
-		return getDistance(coordinate.asCartesianCoordinate());
 	}
 
 	@Override
@@ -116,13 +95,17 @@ public class CartesianCoordinate implements Coordinate{
 	}
 
 	@Override
-	public double getCentralAngle(Coordinate coordinate) {
-		if(coordinate == null){
-			throw new IllegalArgumentException("coordinate must not be null");
-		}
-		SphericCoordinate spheric = coordinate.asSphericCoordinate();
-		return spheric.getCentralAngle(coordinate);
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		long temp;
+		temp = Double.doubleToLongBits(x);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(y);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(z);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
 	}
-
 	
 }

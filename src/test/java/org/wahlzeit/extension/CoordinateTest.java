@@ -1,12 +1,30 @@
-package org.wahlzeit.model;
+package org.wahlzeit.extension;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.wahlzeit.extension.CartesianCoordinate;
+import org.wahlzeit.extension.Coordinate;
+import org.wahlzeit.extension.SphericCoordinate;
 
 public class CoordinateTest {
-	private final double delta = 1.0e-5;
+	private final double delta = 1.0e-15;
+	
+	private Coordinate sphericalA;
+	private Coordinate sphericalB;
+	private Coordinate cartesianA;
+	private Coordinate cartesianB;
 
+	@Before
+	public void setupCoordinates(){
+		sphericalA = new SphericCoordinate(7.681145747868608, 0.861968285336736, 0.540419500270584);
+		sphericalB = new SphericCoordinate(5.385164807134504, 0.733581323640083, 0.982793723247329);
+		//sphericalA should be equal to cartesianA (same with B)
+		cartesianA = new CartesianCoordinate(5, 3, 5);
+		cartesianB = new CartesianCoordinate(2, 3, 4);
+	}
+  
 	@Test
 	public void testConstructorCartesian() {
 		CartesianCoordinate coordinate = new CartesianCoordinate(20,30.5,50.9);
@@ -20,7 +38,7 @@ public class CoordinateTest {
 		Coordinate start = new CartesianCoordinate(3,6,7);
 		Coordinate end = new CartesianCoordinate(10,13,25);
 		double distance = start.getCartesianDistance(end);
-		assertEquals(20.542639, distance , delta);
+		assertEquals(20.54263858417414, distance , delta);
 	}
 	
 	@Test
@@ -66,22 +84,26 @@ public class CoordinateTest {
 	}
 
 	@Test
+	public void testEqualsTrue() {
+		assertTrue(sphericalA.isEqual(cartesianA));
+		assertTrue(cartesianB.isEqual(sphericalB));
+	}
+	@Test
+	public void testEqualsFalse() {
+		assertFalse(sphericalA.isEqual(cartesianB));
+		assertFalse(cartesianA.isEqual(sphericalB));
+	}
+
+	@Test
 	public void testCartesianToSphericCoordinate() {
-		CartesianCoordinate c1 = new CartesianCoordinate(10,24,6);
-		SphericCoordinate c2 = c1.asSphericCoordinate();
-		assertEquals(c2.getRadius(), 26.683328128253, delta);
-		assertEquals(c2.getPhi(), 1.1760052070951, delta);
-		assertEquals(c2.getTheta(), 1.343997478741, delta);
+		Coordinate spherical = cartesianA.asSphericCoordinate();
+		assertTrue(spherical.isEqual(sphericalA));	
 		
 	}
 	@Test
 	public void testSphericToCartesianCoordinate() {
-		double delta = 1.0e-1;
-		SphericCoordinate spheric = new SphericCoordinate(32.817678162844,1.0603080048781,1.0615239274196);
-		CartesianCoordinate cartesian = spheric.asCartesianCoordinate();
-		assertEquals(cartesian.getX(), 14.0, delta);
-		assertEquals(cartesian.getY(), 25.0, delta);
-		assertEquals(cartesian.getZ(), 16.0, delta);
-		
+
+		Coordinate cartesian = sphericalA.asCartesianCoordinate();
+		assertTrue(cartesian.isEqual(cartesianA));
 	}
 }

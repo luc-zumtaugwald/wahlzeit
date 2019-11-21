@@ -1,4 +1,4 @@
-package org.wahlzeit.model;
+package org.wahlzeit.extension;
 
 public class Location {
 	protected final Coordinate coordinate;

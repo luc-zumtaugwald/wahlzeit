@@ -20,6 +20,7 @@
 
 package org.wahlzeit.model;
 
+import org.wahlzeit.extension.CityPhotoFactory;
 import org.wahlzeit.services.LogBuilder;
 
 import java.util.logging.Logger;

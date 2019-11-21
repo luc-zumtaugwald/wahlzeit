@@ -88,6 +88,12 @@ public class CoordinateTest {
 		assertTrue(sphericalA.isEqual(cartesianA));
 		assertTrue(cartesianB.isEqual(sphericalB));
 	}
+
+	@Test
+	public void testHashCode(){
+		assertEquals(sphericalA.hashCode(), cartesianA.hashCode());
+		assertEquals(sphericalB.hashCode(), cartesianB.hashCode());
+	}
 	@Test
 	public void testEqualsFalse() {
 		assertFalse(sphericalA.isEqual(cartesianB));

@@ -41,15 +41,10 @@ public abstract class AbstractCoordinate implements Coordinate {
         if(coordinate == null) {
 			return false;
         }
-        SphericCoordinate c1 = this.asSphericCoordinate();
-        SphericCoordinate c2 = coordinate.asSphericCoordinate();
+        CartesianCoordinate c1 = this.asCartesianCoordinate();
+        CartesianCoordinate c2 = coordinate.asCartesianCoordinate();
         
-		return compareDoubles(c1.getRadius(), c2.getRadius()) && compareDoubles(c1.getTheta(), c2.getTheta()) && compareDoubles(c1.getPhi(), c2.getPhi());
-    }
-
-    private static final double EPSILON = 1e-15;
-	private boolean compareDoubles(double a, double b){
-		return Math.abs(a-b) < EPSILON;
+		return compareDoubles(c1.getX(), c2.getX()) && compareDoubles(c1.getY(), c2.getY()) && compareDoubles(c1.getZ(), c2.getZ());
     }
     
     @Override
@@ -59,7 +54,12 @@ public abstract class AbstractCoordinate implements Coordinate {
     
 	@Override
 	public int hashCode() {	
-        SphericCoordinate spherical = this.asSphericCoordinate();
-        return Objects.hash(spherical.getRadius(), spherical.getTheta(), spherical.getPhi());
-	}
+        CartesianCoordinate cartesian = this.asCartesianCoordinate();
+        return Objects.hash(cartesian.getX(), cartesian.getY(), cartesian.getZ());
+    }
+    
+	private boolean compareDoubles(double a, double b){
+        final double EPSILON = 1e-8;
+		return Math.abs(a-b) < EPSILON;
+    }
 }

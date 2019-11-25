@@ -24,7 +24,8 @@ public class CoordinateTest {
 		cartesianA = new CartesianCoordinate(5, 3, 5);
 		cartesianB = new CartesianCoordinate(2, 3, 4);
 	}
-  
+
+	//Constructors
 	@Test
 	public void testConstructorCartesian() {
 		CartesianCoordinate coordinate = new CartesianCoordinate(20,30.5,50.9);
@@ -32,14 +33,16 @@ public class CoordinateTest {
 		assertEquals(30.5, coordinate.getY(), delta);
 		assertEquals(50.9, coordinate.getZ(), delta);
 	}
-	
+
 	@Test
-	public void testDistanceCartesian() {
-		Coordinate start = new CartesianCoordinate(3,6,7);
-		Coordinate end = new CartesianCoordinate(10,13,25);
-		double distance = start.getCartesianDistance(end);
-		assertEquals(20.54263858417414, distance , delta);
+	public void testConstructorSpherical() {
+		SphericCoordinate coordinate = new SphericCoordinate(20,30.5,50.9);
+		assertEquals(20, coordinate.getRadius(), delta);
+		assertEquals(30.5, coordinate.getTheta(), delta);
+		assertEquals(50.9, coordinate.getPhi(), delta);
 	}
+
+	
 	
 	@Test
 	public void testIsEqualCartesian() {
@@ -82,11 +85,17 @@ public class CoordinateTest {
 		String notACoordinate = "Hi";
 		assertFalse(c1.equals(notACoordinate));
 	}
-
+	//isEqual
 	@Test
-	public void testEqualsTrue() {
+	public void testSphericalCartesianIsEqual() {
 		assertTrue(sphericalA.isEqual(cartesianA));
 		assertTrue(cartesianB.isEqual(sphericalB));
+	}
+
+	@Test
+	public void testSphericalCartesianIsNotEqual() {
+		assertFalse(sphericalA.isEqual(cartesianB));
+		assertFalse(cartesianA.isEqual(sphericalB));
 	}
 
 	@Test
@@ -94,12 +103,10 @@ public class CoordinateTest {
 		assertEquals(sphericalA.hashCode(), cartesianA.hashCode());
 		assertEquals(sphericalB.hashCode(), cartesianB.hashCode());
 	}
-	@Test
-	public void testEqualsFalse() {
-		assertFalse(sphericalA.isEqual(cartesianB));
-		assertFalse(cartesianA.isEqual(sphericalB));
-	}
 
+	
+
+	//conversion
 	@Test
 	public void testCartesianToSphericCoordinate() {
 		Coordinate spherical = cartesianA.asSphericCoordinate();
@@ -111,5 +118,38 @@ public class CoordinateTest {
 
 		Coordinate cartesian = sphericalA.asCartesianCoordinate();
 		assertTrue(cartesian.isEqual(cartesianA));
+	}
+
+	//calculations
+	@Test
+	public void testCartesianDistance() {
+		final double expectedDistance = 20.54263858417414;
+
+		Coordinate start = new CartesianCoordinate(3,6,7);
+		Coordinate end = new CartesianCoordinate(10,13,25);
+		double distance = start.getCartesianDistance(end);
+		assertEquals(expectedDistance, distance , delta);
+
+		end = end.asSphericCoordinate();
+		distance = start.getCartesianDistance(end);
+		assertEquals(expectedDistance, distance , delta);
+
+		start = start.asSphericCoordinate();
+		distance = start.getCartesianDistance(end);
+		assertEquals(expectedDistance, distance , delta);
+	}
+
+	@Test
+	public void testCentralAngle() {
+		final double expectedAngle = 0.332509923359474;
+
+		double angle = sphericalA.getCentralAngle(sphericalB);
+		assertEquals(expectedAngle, angle , delta);
+
+		angle = cartesianA.getCentralAngle(sphericalB);
+		assertEquals(expectedAngle, angle , delta);
+
+		angle = cartesianA.getCentralAngle(cartesianB);
+		assertEquals(expectedAngle, angle , delta);
 	}
 }

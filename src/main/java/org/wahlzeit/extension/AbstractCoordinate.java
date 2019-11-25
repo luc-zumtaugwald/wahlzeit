@@ -15,51 +15,64 @@ public abstract class AbstractCoordinate implements Coordinate {
 
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
-        if(coordinate == null){
+        if (coordinate == null) {
             throw new IllegalArgumentException("coordinate must not be null");
         }
         CartesianCoordinate cartesian = this.asCartesianCoordinate();
         return cartesian.getDistance(coordinate.asCartesianCoordinate());
     }
-    
+
     @Override
-    public double getCentralAngle(Coordinate coordinate) {     
-        if(coordinate == null){
+    public double getCentralAngle(Coordinate coordinate) {
+        if (coordinate == null) {
             throw new IllegalArgumentException("coordinate must not be null");
         }
-        SphericCoordinate c1 = this.asSphericCoordinate();
-        SphericCoordinate c2 = coordinate.asSphericCoordinate();
-        
-		double deltaPhi = Math.abs(c1.getPhi()-c2.getPhi());
-		
-		return Math.acos(Math.sin(c1.getTheta())*Math.sin(c2.getTheta()) 
-		+ Math.cos(c1.getTheta())*Math.cos(c2.getTheta())*Math.cos(deltaPhi));
+        SphericCoordinate a = this.asSphericCoordinate();
+        SphericCoordinate b = coordinate.asSphericCoordinate();
+
+        return doGetCentralAngle(a, b);
+    }
+
+    private double doGetCentralAngle(SphericCoordinate a, SphericCoordinate b){
+        //Vincenty formula
+        double deltaPhi = Math.abs(a.getPhi() - b.getPhi());
+        double t1 = a.getTheta();
+        double t2 = b.getTheta();
+
+        double numerator = Math.sqrt(Math.pow(Math.cos(t2)*Math.sin(deltaPhi),2) 
+            + Math.pow(Math.cos(t1)*Math.sin(t2) -Math.sin(t1)*Math.cos(t2)*Math.cos(deltaPhi),2));
+        double denominator = Math.sin(t1)*Math.sin(t2) + Math.cos(t1)*Math.cos(t2)*Math.cos(deltaPhi);
+
+        return Math.atan(numerator/denominator);
     }
 
     @Override
     public boolean isEqual(Coordinate coordinate) {
-        if(coordinate == null) {
-			return false;
+        if (coordinate == null) {
+            return false;
         }
         CartesianCoordinate c1 = this.asCartesianCoordinate();
         CartesianCoordinate c2 = coordinate.asCartesianCoordinate();
-        
-		return compareDoubles(c1.getX(), c2.getX()) && compareDoubles(c1.getY(), c2.getY()) && compareDoubles(c1.getZ(), c2.getZ());
+
+        return DoubleUtils.compareDoubles(c1.getX(), c2.getX()) 
+            && DoubleUtils.compareDoubles(c1.getY(), c2.getY())
+            && DoubleUtils.compareDoubles(c1.getZ(), c2.getZ());
     }
-    
+
     @Override
-	public boolean equals(Object obj) {
-		return (obj instanceof Coordinate) && this.isEqual((Coordinate)obj);
+    public boolean equals(Object obj) {
+        return (obj instanceof Coordinate) && this.isEqual((Coordinate) obj);
     }
-    
-	@Override
-	public int hashCode() {	
+
+    @Override
+    public int hashCode() {
+        // rounding ensures that if a.equals(b) => a.hashCode() == b.hashCode()
         CartesianCoordinate cartesian = this.asCartesianCoordinate();
-        return Objects.hash(cartesian.getX(), cartesian.getY(), cartesian.getZ());
+        double x = DoubleUtils.getRoundedValue(cartesian.getX());
+        double y = DoubleUtils.getRoundedValue(cartesian.getY());
+        double z = DoubleUtils.getRoundedValue(cartesian.getZ());
+        return Objects.hash(x,y,z);
     }
+
     
-	private boolean compareDoubles(double a, double b){
-        final double EPSILON = 1e-8;
-		return Math.abs(a-b) < EPSILON;
-    }
 }

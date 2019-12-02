@@ -15,22 +15,28 @@ public abstract class AbstractCoordinate implements Coordinate {
 
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
-        if (coordinate == null) {
-            throw new IllegalArgumentException("coordinate must not be null");
-        }
-        CartesianCoordinate cartesian = this.asCartesianCoordinate();
-        return cartesian.getDistance(coordinate.asCartesianCoordinate());
+        assertClassInvariants();
+        Guard.assertArgumentNotNull(coordinate, "coordinate");
+
+        CartesianCoordinate a = this.asCartesianCoordinate();
+        CartesianCoordinate b = coordinate.asCartesianCoordinate();
+        double distance = doGetCartesianDistance(a, b);
+
+        assertClassInvariants();
+        return distance;
     }
 
     @Override
     public double getCentralAngle(Coordinate coordinate) {
-        if (coordinate == null) {
-            throw new IllegalArgumentException("coordinate must not be null");
-        }
+        assertClassInvariants();
+        Guard.assertArgumentNotNull(coordinate, "coordinate");
+
         SphericCoordinate a = this.asSphericCoordinate();
         SphericCoordinate b = coordinate.asSphericCoordinate();
+        double angle = doGetCentralAngle(a, b);
 
-        return doGetCentralAngle(a, b);
+        assertClassInvariants();
+        return angle;
     }
 
     private double doGetCentralAngle(SphericCoordinate a, SphericCoordinate b){
@@ -46,17 +52,29 @@ public abstract class AbstractCoordinate implements Coordinate {
         return Math.atan(numerator/denominator);
     }
 
+	private double doGetCartesianDistance(CartesianCoordinate a, CartesianCoordinate b) {
+        //Pythagorean theorem
+		double dX = a.getX() - b.getX();
+		double dY = a.getY() - b.getY();
+		double dZ = a.getZ() - b.getZ();
+
+		return Math.sqrt(dX*dX+dY*dY+dZ*dZ);
+    }
+    
     @Override
     public boolean isEqual(Coordinate coordinate) {
+        assertClassInvariants();
         if (coordinate == null) {
             return false;
         }
         CartesianCoordinate c1 = this.asCartesianCoordinate();
         CartesianCoordinate c2 = coordinate.asCartesianCoordinate();
-
-        return DoubleUtils.compareDoubles(c1.getX(), c2.getX()) 
+        boolean isEqual = DoubleUtils.compareDoubles(c1.getX(), c2.getX()) 
             && DoubleUtils.compareDoubles(c1.getY(), c2.getY())
             && DoubleUtils.compareDoubles(c1.getZ(), c2.getZ());
+        
+        assertClassInvariants();
+        return isEqual;
     }
 
     @Override
@@ -66,13 +84,17 @@ public abstract class AbstractCoordinate implements Coordinate {
 
     @Override
     public int hashCode() {
+        assertClassInvariants();
         // rounding ensures that if a.equals(b) => a.hashCode() == b.hashCode()
         CartesianCoordinate cartesian = this.asCartesianCoordinate();
         double x = DoubleUtils.getRoundedValue(cartesian.getX());
         double y = DoubleUtils.getRoundedValue(cartesian.getY());
         double z = DoubleUtils.getRoundedValue(cartesian.getZ());
+        assertClassInvariants();
         return Objects.hash(x,y,z);
     }
-
-    
+   /**
+    * Asserts that all class invariants are fullfilled
+    */
+    protected abstract void assertClassInvariants();
 }

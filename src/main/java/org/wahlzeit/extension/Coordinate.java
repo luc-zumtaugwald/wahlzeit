@@ -1,7 +1,7 @@
 package org.wahlzeit.extension;
 
 /**
- * Coordinate
+ * Describes an unambigious point in a coordinate system 
  */
 public interface Coordinate {
     /***
@@ -19,14 +19,14 @@ public interface Coordinate {
     /**
      * Calculates the euclidian distance to another coordinate
      * @methodtype get
-     * @param coordinate 
+     * @param coordinate must not be null
      * @return
      */
     public double getCartesianDistance(Coordinate coordinate);  
     /**
      * Calcutes the central angle to another coordinate
      * @methodtype get
-     * @param coordinate
+     * @param coordinate must not be null
      * @return
      */
     public double getCentralAngle(Coordinate coordinate);

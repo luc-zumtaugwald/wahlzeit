@@ -36,10 +36,10 @@ public class CoordinateTest {
 
 	@Test
 	public void testConstructorSpherical() {
-		SphericCoordinate coordinate = new SphericCoordinate(20,30.5,50.9);
+		SphericCoordinate coordinate = new SphericCoordinate(20,2,1.5);
 		assertEquals(20, coordinate.getRadius(), delta);
-		assertEquals(30.5, coordinate.getTheta(), delta);
-		assertEquals(50.9, coordinate.getPhi(), delta);
+		assertEquals(2, coordinate.getTheta(), delta);
+		assertEquals(1.5, coordinate.getPhi(), delta);
 	}
 
 	
@@ -73,10 +73,10 @@ public class CoordinateTest {
 
 	@Test
 	public void testEqualsSpheric() {
-		Coordinate c1 = new SphericCoordinate(10,24,6);
-		Coordinate c2 = new SphericCoordinate(10,24,6);
+		Coordinate c1 = new SphericCoordinate(10,2,3);
+		Coordinate c2 = new SphericCoordinate(10,2,3);
 		assertTrue(c1.equals(c2));
-		c2 = new SphericCoordinate(10.5,24,6);
+		c2 = new SphericCoordinate(10.5,2,3);
 		assertFalse(c1.equals(c2));
 		
 		c2 = null;
@@ -103,8 +103,6 @@ public class CoordinateTest {
 		assertEquals(sphericalA.hashCode(), cartesianA.hashCode());
 		assertEquals(sphericalB.hashCode(), cartesianB.hashCode());
 	}
-
-	
 
 	//conversion
 	@Test
@@ -142,7 +140,6 @@ public class CoordinateTest {
 	@Test
 	public void testCentralAngle() {
 		final double expectedAngle = 0.332509923359474;
-
 		double angle = sphericalA.getCentralAngle(sphericalB);
 		assertEquals(expectedAngle, angle , delta);
 
@@ -151,5 +148,41 @@ public class CoordinateTest {
 
 		angle = cartesianA.getCentralAngle(cartesianB);
 		assertEquals(expectedAngle, angle , delta);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetThetaIllegalArgument(){
+		SphericCoordinate coordinate = new SphericCoordinate();
+		coordinate.setTheta(-1);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetPhiIllegalArgument(){
+		SphericCoordinate coordinate = new SphericCoordinate();
+		coordinate.setPhi(4);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetRadiusIllegalArgument(){
+		SphericCoordinate coordinate = new SphericCoordinate();
+		coordinate.setRadius(-2);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetXIllegalArgument(){
+		CartesianCoordinate coordinate = new CartesianCoordinate();
+		coordinate.setX(Double.POSITIVE_INFINITY);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetYIllegalArgument(){
+		CartesianCoordinate coordinate = new CartesianCoordinate();
+		coordinate.setY(Double.NEGATIVE_INFINITY);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetZIllegalArgument(){
+		CartesianCoordinate coordinate = new CartesianCoordinate();
+		coordinate.setZ(Double.NaN);
 	}
 }

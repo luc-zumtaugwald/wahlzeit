@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import org.wahlzeit.model.PhotoFactory;
 import org.wahlzeit.model.PhotoId;
-import org.wahlzeit.services.LogBuilder;
 
 /**
  * CityPhotoFactory
@@ -17,20 +16,39 @@ public class CityPhotoFactory extends PhotoFactory {
     }
     
     @Override
-    public CityPhoto createPhoto() {
-        // TODO Auto-generated method stub
+    public CityPhoto createPhoto() throws PhotoCreationFailedException {
+        CityPhoto photo;
+        try{
+            photo = doCreatePhoto();
+        } catch (IllegalArgumentException ex){
+            throw new PhotoCreationFailedException(null, ex);
+        }
+        
+        return photo;
+    }
+    
+    @Override
+    public CityPhoto createPhoto(PhotoId id) throws PhotoCreationFailedException {
+        CityPhoto photo;
+        try{
+            photo = doCreatePhoto(id);
+        } catch (IllegalArgumentException ex){
+            throw new PhotoCreationFailedException(id, ex);
+        }
+        return photo;
+    }
+
+    private CityPhoto doCreatePhoto(){
         CityPhoto photo = new CityPhoto();
         photo.setCityName("unknown");
         photo.setInhabitantCount(0);
         return photo;
     }
-    
-    @Override
-    public CityPhoto createPhoto(PhotoId id){
+
+    private CityPhoto doCreatePhoto(PhotoId id){
         CityPhoto photo = new CityPhoto(id);
         photo.setCityName("unknown");
         photo.setInhabitantCount(0);
         return photo;
     }
-
 }

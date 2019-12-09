@@ -28,7 +28,7 @@ public class SphericCoordinate extends AbstractCoordinate {
      * @param phi value between -pi and +pi
      */
     public SphericCoordinate(double radius, double theta, double phi){
-        Guard.assertArgumentGreaterThan(radius, 0, false, "radius");
+        Guard.assertArgumentGreaterOrEqualThan(radius, 0, false, "radius");
         Guard.assertArgumentInRange(theta, 0d, Math.PI, "theta");
         Guard.assertArgumentInRange(phi, -Math.PI, Math.PI, "phi");
 
@@ -51,7 +51,7 @@ public class SphericCoordinate extends AbstractCoordinate {
      * @param radius a value greater than 0
      */
     public void setRadius(double radius) {
-        Guard.assertArgumentGreaterThan(radius, 0, false, "radius");
+        Guard.assertArgumentGreaterOrEqualThan(radius, 0, false, "radius");
         this.radius = radius;
     }
 

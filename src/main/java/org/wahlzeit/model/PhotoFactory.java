@@ -21,6 +21,7 @@
 package org.wahlzeit.model;
 
 import org.wahlzeit.extension.CityPhotoFactory;
+import org.wahlzeit.extension.PhotoCreationFailedException;
 import org.wahlzeit.services.LogBuilder;
 
 import java.util.logging.Logger;
@@ -76,12 +77,12 @@ public abstract class PhotoFactory {
 	/**
 	 * @methodtype factory
 	 */
-	public abstract Photo createPhoto();
+	public abstract Photo createPhoto() throws PhotoCreationFailedException;
 
 	/**
 	 * Creates a new photo with the specified id
 	 */
-	public abstract Photo createPhoto(PhotoId id);
+	public abstract Photo createPhoto(PhotoId id) throws PhotoCreationFailedException;
 
 	/**
 	 * Loads a photo. The Java object is loaded from the Google Datastore, the Images in all sizes are loaded from the

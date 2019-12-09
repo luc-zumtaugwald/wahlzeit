@@ -34,6 +34,7 @@ public class CityPhoto extends Photo {
     }
 
     public void setInhabitantCount(int inhabitantCount) {
+        Guard.assertArgumentGreaterOrEqualThan(inhabitantCount, 0, false, "inhabitantCount");
         this.inhabitantCount = inhabitantCount;
     }
 

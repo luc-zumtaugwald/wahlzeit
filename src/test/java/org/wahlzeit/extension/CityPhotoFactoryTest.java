@@ -29,19 +29,19 @@ public class CityPhotoFactoryTest {
 	}
 	
 	@Test
-	public void testCreatePhotoType(){
+	public void testCreatePhotoType() throws PhotoCreationFailedException{
 		Photo photo = factory.createPhoto();
 		assertTrue(photo instanceof CityPhoto);
 	}
 
 	@Test
-	public void testCreatePhotoCityname(){
+	public void testCreatePhotoCityname() throws PhotoCreationFailedException{
 		CityPhoto photo = (CityPhoto) factory.createPhoto();
 		assertTrue(photo.getCityName().equals("unknown"));
 	}
 
 	@Test
-	public void testCreatePhotoInhabitantCount(){
+	public void testCreatePhotoInhabitantCount() throws PhotoCreationFailedException{
 		CityPhoto photo = (CityPhoto) factory.createPhoto();
 		assertTrue(photo.getInhabitantCount()==0);
 	}

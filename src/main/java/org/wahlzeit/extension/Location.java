@@ -4,9 +4,7 @@ public class Location {
 	protected final Coordinate coordinate;
 	
 	public Location(Coordinate coordinate) {
-		if(coordinate == null){
-			throw new IllegalArgumentException("coordinate must not be null");
-		}
+		Guard.assertArgumentNotNull(coordinate, "coordinate");
 		this.coordinate = coordinate;
 	}
 

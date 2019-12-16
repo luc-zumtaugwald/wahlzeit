@@ -1,21 +1,26 @@
 package org.wahlzeit.extension;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 /**
  * AbstractCoordinate
  */
 public abstract class AbstractCoordinate implements Coordinate {
+    
+    protected static HashMap<Coordinate, CartesianCoordinate> cartesianCoordinateMap = new HashMap<>();
+    protected static HashMap<Coordinate, SphericCoordinate> sphericCoordinateMap = new HashMap<>();
+
 
     @Override
     public abstract CartesianCoordinate asCartesianCoordinate();
+
 
     @Override
     public abstract SphericCoordinate asSphericCoordinate();
 
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
-        assertClassInvariants();
         Guard.assertArgumentNotNull(coordinate, "coordinate");
 
         CartesianCoordinate a = this.asCartesianCoordinate();
@@ -28,7 +33,6 @@ public abstract class AbstractCoordinate implements Coordinate {
 
     @Override
     public double getCentralAngle(Coordinate coordinate) {
-        assertClassInvariants();
         Guard.assertArgumentNotNull(coordinate, "coordinate");
 
         SphericCoordinate a = this.asSphericCoordinate();
@@ -63,10 +67,11 @@ public abstract class AbstractCoordinate implements Coordinate {
     
     @Override
     public boolean isEqual(Coordinate coordinate) {
-        assertClassInvariants();
+
         if (coordinate == null) {
             return false;
         }
+
         CartesianCoordinate c1 = this.asCartesianCoordinate();
         CartesianCoordinate c2 = coordinate.asCartesianCoordinate();
         boolean isEqual = DoubleUtils.compareDoubles(c1.getX(), c2.getX()) 
@@ -84,7 +89,6 @@ public abstract class AbstractCoordinate implements Coordinate {
 
     @Override
     public int hashCode() {
-        assertClassInvariants();
         // rounding ensures that if a.equals(b) => a.hashCode() == b.hashCode()
         CartesianCoordinate cartesian = this.asCartesianCoordinate();
         double x = DoubleUtils.getRoundedValue(cartesian.getX());
@@ -97,4 +101,6 @@ public abstract class AbstractCoordinate implements Coordinate {
     * Asserts that all class invariants are fullfilled
     */
     protected abstract void assertClassInvariants();
+
+  
 }

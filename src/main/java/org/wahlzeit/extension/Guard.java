@@ -77,7 +77,18 @@ public class Guard {
             throw new IllegalArgumentException(message);
         }
     }
-    
+    /**
+     * Asserts that an argument is of the specified type
+     * @param argument argument to check
+     * @param type expected type
+     * @param argumentName name of the argument
+     */
+    public static void assertArgumentOfType(Object argument, Class type, String argumentName){
+        if(argument == null || argument.getClass() != type){
+            String message = createArgumentExceptionMessage(argumentName, "Argument must be of type "+type.getName());
+            throw new IllegalArgumentException(message);
+        }
+    }
     /**
      * Asserts that a double value is valid
      * @param value value to check

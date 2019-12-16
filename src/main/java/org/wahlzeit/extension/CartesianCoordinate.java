@@ -1,7 +1,5 @@
 package org.wahlzeit.extension;
 
-import java.util.Objects;
-
 import org.wahlzeit.extension.Guard.InvalidDoubleValues;
 
 /**
@@ -10,18 +8,33 @@ import org.wahlzeit.extension.Guard.InvalidDoubleValues;
  */
 public class CartesianCoordinate extends AbstractCoordinate{
 	
-	private double x;
-	private double y;
-	private double z;
+	private final double x;
+	private final double y;
+	private final double z;
 	
 	/**
-	 * Instanciates a cartesian coordinate and initializes x, y and z with 0.
-	 * Resulting coordinate is equal to the origin of the coordinate system.
+	 * Gets cartesian coordinate
+ 	 * @param x non-infinite value
+	 * @param y non-infinite value
+	 * @param z non-infinite value
+	 * @return Cartesian coordinate
 	 */
-	public CartesianCoordinate(){
-		this.x = 0;
-		this.y = 0;
-		this.z = 0;
+	public static synchronized CartesianCoordinate getCartesianCoordinate(double x, double y, double z){
+		CartesianCoordinate coordinate = new CartesianCoordinate(x,y,z);
+		CartesianCoordinate value = cartesianCoordinateMap.get(coordinate);
+		if(value != null){
+			return value;
+		}
+		cartesianCoordinateMap.put(coordinate, coordinate);
+		return coordinate;
+	}
+
+	/**
+	 * Gets cartesian coordinate with all components initialized with 0
+	 * @return origin of the coordinate system
+	 */
+	public static CartesianCoordinate getCartesianCoordinate(){
+		return getCartesianCoordinate(0,0,0);
 	}
 
 	/**
@@ -30,7 +43,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	 * @param y non-infinite value
 	 * @param z non-infinite value
 	 */
-	public CartesianCoordinate(double x, double y, double z) {
+	private CartesianCoordinate(double x, double y, double z) {
 		Guard.assertDoubleArgumentValid(x, InvalidDoubleValues.NAN_INFINITY, "x");
 		Guard.assertDoubleArgumentValid(y, InvalidDoubleValues.NAN_INFINITY, "y");
 		Guard.assertDoubleArgumentValid(z, InvalidDoubleValues.NAN_INFINITY, "z");
@@ -61,45 +74,19 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		return z;
 	}
 	
-	/**
-	 * @methodtype set
-	 */
-	public void setX(double x) {
-		Guard.assertDoubleArgumentValid(x, InvalidDoubleValues.NAN_INFINITY, "x");
-		this.x = x;
-	}
-	
-	/**
-	 * @methodtype set
-	 */
-	public void setY(double y) {
-		Guard.assertDoubleArgumentValid(y, InvalidDoubleValues.NAN_INFINITY, "y");
-		this.y = y;
-	}
-	
-	/**
-	 * @methodtype set
-	 */
-	public void setZ(double z) {
-		Guard.assertDoubleArgumentValid(z, InvalidDoubleValues.NAN_INFINITY, "z");
-		this.z = z;
-	}
-
 	@Override
 	public CartesianCoordinate asCartesianCoordinate() {
-		CartesianCoordinate coordinate = new CartesianCoordinate(getX(),getY(),getZ());
-		return coordinate;
+		return this;
 	}
 
 	@Override
 	public SphericCoordinate asSphericCoordinate() {
+		
+		double radius = Math.sqrt(getX()*getX()+getY()*getY()+getZ()*getZ());
+		double theta = Math.acos(z / radius);
+		double phi = Math.atan2(y, x);
 		assertClassInvariants();
-		CartesianCoordinate origin = new CartesianCoordinate();
-		double radius = getCartesianDistance(origin);
-		double theta = Math.acos(z/radius);
-		double phi = Math.atan2(y,x);
-		assertClassInvariants();
-		return new SphericCoordinate(radius, theta, phi);
+		return SphericCoordinate.getSphericCoordinate(radius, theta, phi);
 	}
 
 	@Override

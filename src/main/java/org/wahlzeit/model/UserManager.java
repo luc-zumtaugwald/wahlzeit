@@ -22,6 +22,8 @@ package org.wahlzeit.model;
 
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Work;
+
+import org.wahlzeit.extension.PatternInstance;
 import org.wahlzeit.services.EmailAddress;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.mailing.EmailService;
@@ -37,6 +39,12 @@ import java.util.logging.Logger;
 /**
  * The UserManager provides access to and manages Users (including Moderators and Administrators).
  */
+@PatternInstance(
+	patternName = "Singelton",
+	participants = {
+		"Singelton"
+	}
+)
 public class UserManager extends ClientManager {
 
 	private static final Logger log = Logger.getLogger(UserManager.class.getName());

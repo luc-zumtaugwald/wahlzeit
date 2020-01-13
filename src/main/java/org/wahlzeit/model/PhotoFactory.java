@@ -21,6 +21,7 @@
 package org.wahlzeit.model;
 
 import org.wahlzeit.extension.CityPhotoFactory;
+import org.wahlzeit.extension.PatternInstance;
 import org.wahlzeit.extension.PhotoCreationFailedException;
 import org.wahlzeit.services.LogBuilder;
 
@@ -29,6 +30,12 @@ import java.util.logging.Logger;
 /**
  * An Abstract Factory for creating photos and related objects.
  */
+@PatternInstance(
+	patternName = "Abstract Factory",
+	participants = {
+		"AbstractFactory"
+	}
+)
 public abstract class PhotoFactory {
 
 	private static final Logger log = Logger.getLogger(PhotoFactory.class.getName());

@@ -6,6 +6,12 @@ import org.wahlzeit.extension.Guard.InvalidDoubleValues;
  * Describes an unambigius point in a cartesian coordinate system
  * 
  */
+@PatternInstance(
+	patternName = "Template Method",
+	participants = {
+		"ConcreteClass"
+	}
+)
 public class CartesianCoordinate extends AbstractCoordinate{
 	
 	private final double x;

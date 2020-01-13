@@ -10,6 +10,12 @@ import com.googlecode.objectify.annotation.Subclass;
  */
 
 @Subclass
+@PatternInstance(
+	patternName = "Abstract Factory",
+	participants = {
+		"ConcreteProduct"
+	}
+)
 public class CityPhoto extends Photo {
     
     protected String cityName;

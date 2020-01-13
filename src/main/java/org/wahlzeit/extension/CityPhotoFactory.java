@@ -8,6 +8,12 @@ import org.wahlzeit.model.PhotoId;
 /**
  * CityPhotoFactory
  */
+@PatternInstance(
+	patternName = "Abstract Factory",
+	participants = {
+		"ConcreteFactory"
+	}
+)
 public class CityPhotoFactory extends PhotoFactory {
 
     

@@ -5,6 +5,12 @@ import java.util.Objects;
 /**
  * Describes an unambigious point in a spherical coordinate system
  */
+@PatternInstance(
+	patternName = "Template Method",
+	participants = {
+		"ConcreteClass"
+	}
+)
 public class SphericCoordinate extends AbstractCoordinate {
 
     private final double radius;

@@ -6,6 +6,12 @@ import java.util.Objects;
 /**
  * AbstractCoordinate
  */
+@PatternInstance(
+	patternName = "Template Method",
+	participants = {
+		"AbstractClass"
+	}
+)
 public abstract class AbstractCoordinate implements Coordinate {
     
     protected static HashMap<Coordinate, CartesianCoordinate> cartesianCoordinateMap = new HashMap<>();

@@ -54,7 +54,7 @@ public class AnimalPhotoFactory extends PhotoFactory {
 
     private AnimalPhoto doCreatePhoto(PhotoId id) throws AnimalTypeNotFoundException {
         AnimalManager manager = AnimalManager.getInstance();
-        Animal animal = manager.createAnimal("Unknown");
+        Animal animal = manager.createAnimal(AnimalManager.ROOT_TYPE_NAME);
         animal.setLocation(new Location(CartesianCoordinate.getCartesianCoordinate()));
         AnimalPhoto photo;
         if(id == null){

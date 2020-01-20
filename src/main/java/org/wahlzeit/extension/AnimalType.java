@@ -11,14 +11,14 @@ import org.wahlzeit.services.DataObject;
 /**
  * AnimalType
  */
-@Entity
-public class AnimalType extends DataObject  {
+public class AnimalType {
 
     protected AnimalType superType = null;
     protected Set<AnimalType> subTypes = new HashSet<AnimalType>();
 
     private String name;
-
+    private int lifeExpectancy;
+    
     public AnimalType(String name){
         this.name = name;
     }
@@ -67,5 +67,13 @@ public class AnimalType extends DataObject  {
         }
     
         return false;
-      } 
+      }
+
+    public int getLifeExpectancy() {
+        return lifeExpectancy;
+    }
+
+    public void setLifeExpectancy(int lifeExpectancy) {
+        this.lifeExpectancy = lifeExpectancy;
+    }
 }

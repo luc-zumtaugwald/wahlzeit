@@ -6,6 +6,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         AnimalPhotoFactoryTest.class,
+        AnimalManagerTest.class,
         CoordinateTest.class
 })
 public class ExtensionTestSuite {

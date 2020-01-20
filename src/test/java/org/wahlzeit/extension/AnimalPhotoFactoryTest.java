@@ -22,7 +22,7 @@ public class AnimalPhotoFactoryTest {
 	
 
 	@Before
-	public void initPhotoManager() {
+	public void initPhotoFactory() {
 		PhotoFactory.initialize();
 		factory = PhotoFactory.getInstance();
 	}
@@ -34,9 +34,9 @@ public class AnimalPhotoFactoryTest {
 	}
 
 	@Test
-	public void testCreatePhotoCityname() throws PhotoCreationFailedException{
+	public void testCreatePhotoAnimalTypeName() throws PhotoCreationFailedException{
 		AnimalPhoto photo = (AnimalPhoto) factory.createPhoto();
-		assertTrue(photo.getAnimal().getType().getName().equals("Unknown"));
+		assertTrue(photo.getAnimal().getType().getName().equals(AnimalManager.ROOT_TYPE_NAME));
 	}
 
 }

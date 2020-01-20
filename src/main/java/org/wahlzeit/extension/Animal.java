@@ -7,8 +7,7 @@ import org.wahlzeit.services.DataObject;
 /**
  * Animal
  */
-@Entity
-public class Animal extends DataObject {
+public class Animal {
     private AnimalType type;
     private Location location;
     

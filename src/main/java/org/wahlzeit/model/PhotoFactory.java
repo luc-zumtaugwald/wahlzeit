@@ -20,7 +20,7 @@
 
 package org.wahlzeit.model;
 
-import org.wahlzeit.extension.CityPhotoFactory;
+import org.wahlzeit.extension.AnimalPhotoFactory;
 import org.wahlzeit.extension.PatternInstance;
 import org.wahlzeit.extension.PhotoCreationFailedException;
 import org.wahlzeit.services.LogBuilder;
@@ -64,7 +64,7 @@ public abstract class PhotoFactory {
 	public static synchronized PhotoFactory getInstance() {
 		if (instance == null) {
 			log.config(LogBuilder.createSystemMessage().addAction("setting generic PhotoFactory").toString());
-			setInstance(new CityPhotoFactory());
+			setInstance(new AnimalPhotoFactory());
 		}
 
 		return instance;

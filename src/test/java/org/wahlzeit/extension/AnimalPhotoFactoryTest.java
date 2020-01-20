@@ -8,14 +8,13 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
-import org.wahlzeit.extension.CityPhoto;
+import org.wahlzeit.extension.AnimalPhoto;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoFactory;
-import org.wahlzeit.services.OfyService;
 import org.wahlzeit.testEnvironmentProvider.LocalDatastoreServiceTestConfigProvider;
 import org.wahlzeit.testEnvironmentProvider.RegisteredOfyEnvironmentProvider;
 
-public class CityPhotoFactoryTest {
+public class AnimalPhotoFactoryTest {
 	@ClassRule
 	public static RuleChain ruleChain = RuleChain.outerRule(new LocalDatastoreServiceTestConfigProvider())
 			.around(new RegisteredOfyEnvironmentProvider());
@@ -31,18 +30,13 @@ public class CityPhotoFactoryTest {
 	@Test
 	public void testCreatePhotoType() throws PhotoCreationFailedException{
 		Photo photo = factory.createPhoto();
-		assertTrue(photo instanceof CityPhoto);
+		assertTrue(photo instanceof AnimalPhoto);
 	}
 
 	@Test
 	public void testCreatePhotoCityname() throws PhotoCreationFailedException{
-		CityPhoto photo = (CityPhoto) factory.createPhoto();
-		assertTrue(photo.getCityName().equals("unknown"));
+		AnimalPhoto photo = (AnimalPhoto) factory.createPhoto();
+		assertTrue(photo.getAnimal().getType().getName().equals("Unknown"));
 	}
 
-	@Test
-	public void testCreatePhotoInhabitantCount() throws PhotoCreationFailedException{
-		CityPhoto photo = (CityPhoto) factory.createPhoto();
-		assertTrue(photo.getInhabitantCount()==0);
-	}
 }

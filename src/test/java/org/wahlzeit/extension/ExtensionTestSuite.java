@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        CityPhotoFactoryTest.class,
+        AnimalPhotoFactoryTest.class,
         CoordinateTest.class
 })
 public class ExtensionTestSuite {
